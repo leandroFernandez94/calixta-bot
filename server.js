@@ -34,6 +34,7 @@ bot.onText(/^\/foto$/, (msg) => {
 
 bot.onText(/^\/ubicacion$/, (msg) => {
   const chatId = getChatId(msg)
+  console.log('requested location', chatId)
   bot.sendMessage(chatId, direccion)
   bot.sendLocation(chatId, -34.602307, -58.541995)
 })
