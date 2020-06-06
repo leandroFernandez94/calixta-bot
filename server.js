@@ -1,14 +1,19 @@
 import dotenv from 'dotenv'
 import TelegramBot from 'node-telegram-bot-api'
 import __dirname from './dirname.js'
+import express from 'express'
 import {horarios, servicios, direccion, metodosDePago} from './constants.js'
 
 dotenv.config()
 const token = process.env.TELEGRAM_BOT_TOKEN
 
-console.log(__dirname)
-
 const bot = new TelegramBot(token, {polling: true});
+
+const app = express()
+
+app.get('/', (req, res) => res.send('running'))
+
+app.listen(8080, () => console.log('running on port 8080'))
  
 // Matches "/echo [whatever]"
 bot.onText(/^\/horarios$/, (msg, match) => {
