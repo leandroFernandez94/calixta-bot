@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import TelegramBot from 'node-telegram-bot-api'
 import __dirname from './dirname.js'
-import {horarios, servicios, direccion} from './constants.js'
+import {horarios, servicios, direccion, metodosDePago} from './constants.js'
 
 dotenv.config()
 const token = process.env.TELEGRAM_BOT_TOKEN
@@ -30,6 +30,11 @@ bot.onText(/^\/foto$/, (msg) => {
   bot.sendPhoto(chatId, photo, {
     caption: "Salu"
   });
+})
+
+bot.onText(/^\/metodos$/, (msg) => {
+  const chatId = getChatId(msg)
+  bot.sendMessage(chatId, metodosDePago)
 })
 
 bot.onText(/^\/ubicacion$/, (msg) => {

@@ -12,3 +12,8 @@ export const servicios = `
 🎀 Esmaltado semi permanente
 🎀 Depilación definitiva
 `
+
+export const metodosDePago = `
+MercadoPago(con QR)
+Efectivo
+`
