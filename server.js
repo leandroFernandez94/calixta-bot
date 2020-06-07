@@ -1,25 +1,31 @@
 import dotenv from 'dotenv'
-import TelegramBot from 'node-telegram-bot-api'
+import Telegraf from 'telegraf'
+import express from 'express'
 import __dirname from './dirname.js'
 import applyCommandListeners from './commands/index.js'
+import applyCallbackOptionsListeners from './optionsCallbacks/index.js'
 
 dotenv.config()
 const {TELEGRAM_BOT_TOKEN: TOKEN, PORT, APP_URL, NODE_ENV} = process.env
 
 let bot = null
 
-if (NODE_ENV === 'development') {
-  bot = new TelegramBot(TOKEN, {polling: true});
-} else {
-  const options = {
-    webHook: {
-      port: PORT
-    }
-  };
-  
-  const url = APP_URL || 'https://calixta-bot.herokuapp.com/';
-  bot = new TelegramBot(TOKEN, options);
-  bot.setWebHook(`${url}/bot${TOKEN}`);
+bot = new Telegraf(TOKEN);
+
+if (NODE_ENV !== 'development') {
+  const expressApp = express()
+  bot.telegram.setWebhook(`${APP_URL}/bot${API_TOKEN}`);
+  expressApp.use(bot.webhookCallback(`/bot${API_TOKEN}`));
+
+  expressApp.get('/', (_, res) => {
+    res.send('Hello World!');
+  });
+  expressApp.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 }
 
 applyCommandListeners(bot)
+applyCallbackOptionsListeners(bot)
+
+bot.launch()
