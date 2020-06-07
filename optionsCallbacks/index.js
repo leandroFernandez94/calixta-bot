@@ -1,12 +1,16 @@
-const OPTIONS_CMD = /Uñas esculpidas|Esmaltado semipermanente|Esmaltado clasico|Perfilado de cejas y lifting de pestañas|Retiro/
+import esculpidasCallbackListener from './esculpidas.js'
+import semipermanenteCallbackListener from './semipermanente.js'
+import clasicoCallbackListener from './clasico.js'
+import perfiladoCallbackListener from './perfilado.js'
+import retiroCallbackListener from './retiro.js'
 
-function turnosCallbackListener(bot) {
-  bot.hears(OPTIONS_CMD, ctx => {
-    ctx.reply('OK Gracias!', {reply_markup: {remove_keyboard: true}})
-  })
-}
-
-const callbacks = [turnosCallbackListener]
+const callbacks = [
+  esculpidasCallbackListener,
+  semipermanenteCallbackListener,
+  clasicoCallbackListener,
+  perfiladoCallbackListener,
+  retiroCallbackListener
+]
 
 export default function applyCallbackOptionsListeners(bot) {
   callbacks.forEach(c => c(bot))
