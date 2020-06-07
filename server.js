@@ -1,6 +1,5 @@
 import dotenv from 'dotenv'
 import Telegraf from 'telegraf'
-// import express from 'express'
 import __dirname from './dirname.js'
 import applyCommandListeners from './commands/index.js'
 import applyCallbackOptionsListeners from './optionsCallbacks/index.js'
