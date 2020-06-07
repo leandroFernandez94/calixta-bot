@@ -14,8 +14,8 @@ bot = new Telegraf(TOKEN);
 
 if (NODE_ENV !== 'development') {
   const expressApp = express()
-  bot.telegram.setWebhook(`${APP_URL}/bot${API_TOKEN}`);
-  expressApp.use(bot.webhookCallback(`/bot${API_TOKEN}`));
+  bot.telegram.setWebhook(`${APP_URL}/bot${TOKEN}`);
+  expressApp.use(bot.webhookCallback(`/bot${TOKEN}`));
 
   expressApp.get('/', (_, res) => {
     res.send('Hello World!');
