@@ -13,8 +13,8 @@ let bot = null
 bot = new Telegraf(TOKEN);
 
 if (NODE_ENV !== 'development') {
-  bot.telegram.setWebhook(`${URL}/bot${API_TOKEN}`);
-  bot.startWebhook(`/bot${API_TOKEN}`, null, PORT)
+  bot.telegram.setWebhook(`${APP_URL}/bot${TOKEN}`);
+  bot.startWebhook(`/bot${TOKEN}`, null, PORT)
 }
 
 applyCommandListeners(bot)
