@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 import Telegraf from 'telegraf'
-import express from 'express'
+// import express from 'express'
 import __dirname from './dirname.js'
 import applyCommandListeners from './commands/index.js'
 import applyCallbackOptionsListeners from './optionsCallbacks/index.js'
@@ -13,16 +13,8 @@ let bot = null
 bot = new Telegraf(TOKEN);
 
 if (NODE_ENV !== 'development') {
-  const expressApp = express()
-  bot.telegram.setWebhook(`${APP_URL}/bot${TOKEN}`);
-  expressApp.use(bot.webhookCallback(`/bot${TOKEN}`));
-
-  expressApp.get('/', (_, res) => {
-    res.send('Hello World!');
-  });
-  expressApp.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
+  bot.telegram.setWebhook(`${URL}/bot${API_TOKEN}`);
+  bot.startWebhook(`/bot${API_TOKEN}`, null, PORT)
 }
 
 applyCommandListeners(bot)
